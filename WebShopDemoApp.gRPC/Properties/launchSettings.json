@@ -1,0 +1,13 @@
+﻿{
+  "profiles": {
+    "WebShopDemoApp.gRPC": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": false,
+      "applicationUrl": "http://localhost:5195;https://localhost:7171",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
