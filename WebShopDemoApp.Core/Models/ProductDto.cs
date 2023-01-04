@@ -24,7 +24,7 @@ namespace WebShopDemoApp.Core.Models
         /// <summary>
         /// Product price
         /// </summary>
-        [Range(typeof(decimal), "0.1", "100", ConvertValueInInvariantCulture = true)]
+        [Range(typeof(decimal), "0.1", "1000", ConvertValueInInvariantCulture = true)]
         public decimal Price { get; set; }
 
         /// <summary>

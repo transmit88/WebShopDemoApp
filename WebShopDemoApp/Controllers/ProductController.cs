@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebShopDemoApp.Core.Contracts;
+using WebShopDemoApp.Core.Models;
 
 namespace WebShopDemoApp.Controllers
 {
@@ -27,6 +28,30 @@ namespace WebShopDemoApp.Controllers
             ViewData["Title"] = "Products";
 
             return View(products);
+        }
+
+        [HttpGet]
+        public IActionResult Add()
+        {
+            ViewData["Title"] = "Add new product";
+
+            return View(new ProductDto());
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Add(ProductDto model)
+        {
+            ViewData["Title"] = "Add new product";
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            await productService.Add(model);  
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }

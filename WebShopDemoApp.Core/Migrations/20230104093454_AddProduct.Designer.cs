@@ -12,8 +12,8 @@ using WebShopDemoApp.Core.Data;
 namespace WebShopDemoApp.Core.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230104092325_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20230104093454_AddProduct")]
+    partial class AddProduct
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -272,6 +272,39 @@ namespace WebShopDemoApp.Core.Migrations
                         .HasName("pk_asp_net_user_tokens");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("WebShopDemoApp.Core.Data.Models.Product", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("id")
+                        .HasComment("Primary key");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnName("name")
+                        .HasComment("Product name");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("price")
+                        .HasComment("Product price");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int")
+                        .HasColumnName("quantity")
+                        .HasComment("Products in stock");
+
+                    b.HasKey("Id")
+                        .HasName("pk_products");
+
+                    b.ToTable("products", (string)null);
+
+                    b.HasComment("Product to sell");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

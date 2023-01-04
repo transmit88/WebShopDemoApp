@@ -2,7 +2,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WebShopDemoApp.Core.Contracts;
 using WebShopDemoApp.Core.Services;
-using WebShopDemoApp.Data.Core;
+using WebShopDemoApp.Core.Data;
+using WebShopDemoApp.Core.Data.Common;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IRepository, Repository>();
 
 var app = builder.Build();
 
