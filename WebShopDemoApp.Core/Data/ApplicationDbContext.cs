@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using WebShopDemoApp.Core.Data.Models;
+using WebShopDemoApp.Core.Data.Models.Account;
 
 namespace WebShopDemoApp.Core.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -23,7 +24,6 @@ namespace WebShopDemoApp.Core.Data
         }
 
         public DbSet<Product> Products { get; set; }
-        public DbSet<User> Users { get; set; }
 
 
     }

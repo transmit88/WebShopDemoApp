@@ -4,6 +4,7 @@ using WebShopDemoApp.Core.Contracts;
 using WebShopDemoApp.Core.Services;
 using WebShopDemoApp.Core.Data;
 using WebShopDemoApp.Core.Data.Common;
+using WebShopDemoApp.Core.Data.Models.Account;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +15,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 //builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 {
     options.Password.RequireNonAlphanumeric = true;
     options.Password.RequiredLength = 6;
@@ -23,6 +24,12 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 
 })
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "Account/Login";
+});
+
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IProductService, ProductService>();
@@ -31,7 +38,7 @@ builder.Services.AddScoped<IRepository, Repository>();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromSeconds(5);
+    //options.IdleTimeout = TimeSpan.FromSeconds(5);
     options.Cookie.HttpOnly = true;
 });
 
