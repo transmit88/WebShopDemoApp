@@ -20,14 +20,15 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
     options.Password.RequireNonAlphanumeric = true;
     options.Password.RequiredLength = 6;
 
-    options.User.RequireUniqueEmail= true;
+    options.User.RequireUniqueEmail = true;
 
 })
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
-    options.LoginPath = "Account/Login";
+    options.LoginPath = "/Account/Login";
 });
 
 builder.Services.AddControllersWithViews();
