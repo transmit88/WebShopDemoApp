@@ -5,6 +5,7 @@ using WebShopDemoApp.Core.Services;
 using WebShopDemoApp.Core.Data;
 using WebShopDemoApp.Core.Data.Common;
 using WebShopDemoApp.Core.Data.Models.Account;
+using WebShopDemoApp.Core.Constants;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +30,13 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = "/Account/Login";
+});
+//Policy
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("CanDeleteProduct", policy =>
+        policy.RequireAssertion(contex =>
+        contex.User.IsInRole(RoleConstants.Manager) && contex.User.IsInRole(RoleConstants.Supervisor)));
 });
 
 builder.Services.AddControllersWithViews();

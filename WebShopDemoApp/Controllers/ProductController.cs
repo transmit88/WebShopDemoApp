@@ -60,7 +60,8 @@ namespace WebShopDemoApp.Controllers
 
         //Delete
         [HttpPost]
-        [Authorize(Roles = RoleConstants.Supervisor)]
+        //[Authorize(Roles = RoleConstants.Supervisor)]
+        [Authorize(Policy = "CanDeleteProduct")]
         public async Task<IActionResult> Delete([FromForm]Guid id)
         {
             await productService.Delete(id);
