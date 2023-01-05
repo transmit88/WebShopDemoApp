@@ -60,8 +60,9 @@ namespace WebShopDemoApp.Core.Services
         /// <returns>List of products</returns>
         public async Task<IEnumerable<ProductDto>> GetAll()
         {
-            return await repo.AllReadonly<Product>()
-                .Select(p => new ProductDto()
+            return await repo.AllReadonly<Product>() // From repo swich off change tracker and get all product
+                .Where(p => p.IsActive)
+                .Select(p => new ProductDto() // Convert in ProductDto
                 {
                     Id = p.Id,
                     Name = p.Name,
@@ -77,6 +78,20 @@ namespace WebShopDemoApp.Core.Services
             //return JsonConvert.DeserializeObject<IEnumerable<ProductDto>>(data);
 
             //string dataPath = config.GetValue();
+        }
+
+        //Delete
+        public async Task Delete(Guid id)
+        {
+            var product = await repo.All<Product>()
+                .FirstOrDefaultAsync(p => p.Id == id);
+
+            if (product != null)
+            {
+                product.IsActive = false;
+
+                await repo.SaveChangesAsync();
+            }
         }
     }
 }

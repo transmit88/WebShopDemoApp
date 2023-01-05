@@ -24,5 +24,7 @@ namespace WebShopDemoApp.Core.Contracts
         /// <param name="productDto">Product model</param>
         /// <returns></returns>
         Task Add(ProductDto productDto);
+
+        Task Delete(Guid id);
     }
 }

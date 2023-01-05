@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WebShopDemoApp.Core.Contracts;
 using WebShopDemoApp.Core.Models;
 
@@ -7,6 +8,7 @@ namespace WebShopDemoApp.Controllers
     /// <summary>
     /// Web shop products
     /// </summary>
+    [Authorize]
     public class ProductController : Controller
     {
         private readonly IProductService productService;
@@ -50,6 +52,15 @@ namespace WebShopDemoApp.Controllers
             }
 
             await productService.Add(model);  
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        //Delete
+        [HttpPost]
+        public async Task<IActionResult> Delete([FromForm]Guid id)
+        {
+            await productService.Delete(id);
 
             return RedirectToAction(nameof(Index));
         }

@@ -15,11 +15,32 @@ namespace WebShopDemoApp.Controllers
 
         public IActionResult Index()
         {
+            //Cookie
+            //if (TempData.ContainsKey("LastAccessTime"))
+            //{
+            //    return Ok(TempData["LastAccessTime"]);
+            //}
+
+            //TempData["LastAccessTime"] = DateTime.Now;
+
+            //this.HttpContext.Response.Cookies.Append("mCookie", "Pesho");
+
+            //Session
+            this.HttpContext.Session.SetString("name", "pesho");
+
             return View();
         }
 
         public IActionResult Privacy()
         {
+            //Session
+            //string? name = this.HttpContext.Session.GetString("name");
+
+            //if (!string.IsNullOrEmpty(name))
+            //{
+            //    return Ok(name);
+            //}
+
             return View();
         }
 
